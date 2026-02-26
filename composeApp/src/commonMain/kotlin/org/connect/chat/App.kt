@@ -1,10 +1,12 @@
 package org.connect.chat
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,7 +20,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.connect.chat.data.Screen
+import org.connect.chat.domain.permission.PermissionType
+import org.connect.chat.domain.usecase.CheckPermissionUseCase
+import org.connect.chat.domain.usecase.RequestPermissionUseCase
+import org.koin.compose.koinInject
 
 @Composable
 @Preview
@@ -36,7 +45,6 @@ fun App() {
         composable(Screen.Permission.route){
             Permission(navController)
         }
-
 
     }
 }
@@ -89,5 +97,37 @@ fun MainMenu(navController: NavHostController) {
 
 @Composable
 fun Permission(navController: NavHostController) {
-    Text("Permission screen")
+    val checkPermission: CheckPermissionUseCase = koinInject()
+    val requestPermission: RequestPermissionUseCase = koinInject()
+
+    var status by remember { mutableStateOf("Unknown") }
+
+    Column {
+
+        Column {
+
+            Spacer(modifier = Modifier.height(50.dp))
+            Button(onClick = {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val granted = checkPermission(PermissionType.Camera)
+                    status = if (granted) "Camera Granted" else "Camera Not Granted"
+                }
+            }) {
+                Text("Check Camera permission")
+            }
+
+            Button(onClick = {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val result = requestPermission(listOf(PermissionType.Camera,
+                        PermissionType.LocationForeground,
+                        PermissionType.LocationBackground))
+                    status = result.toString()
+                }
+            }) {
+                Text("Request Permission")
+            }
+
+            Text(status)
+        }
+    }
 }
