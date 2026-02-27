@@ -2,6 +2,7 @@ package org.connect.chat.platform
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
@@ -49,6 +50,7 @@ class AndroidPermissionManager(
     }
 
     fun onMultiplePermissionResult(permissionsMap: Map<String, Boolean>) {
+
         val continuation = pendingContinuation ?: return
         val permission = pendingMultiPermissions ?: return
         pendingContinuation = null
@@ -94,6 +96,8 @@ class AndroidPermissionManager(
                 Manifest.permission.ACCESS_FINE_LOCATION
             PermissionType.LocationBackground ->
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            PermissionType.RecordAudio ->
+                Manifest.permission.RECORD_AUDIO
         }
 }
 

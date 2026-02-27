@@ -24,6 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.connect.chat.data.Screen
+import org.connect.chat.domain.permission.PermissionStatus
 import org.connect.chat.domain.permission.PermissionType
 import org.connect.chat.domain.usecase.CheckPermissionUseCase
 import org.connect.chat.domain.usecase.RequestPermissionUseCase
@@ -116,12 +117,33 @@ fun Permission(navController: NavHostController) {
                 Text("Check Camera permission")
             }
 
+           /* PermissionType.Camera,
+            PermissionType.LocationForeground,
+            PermissionType.LocationBackground,*/
+           /* PermissionType.RecordAudio*/
+
             Button(onClick = {
                 CoroutineScope(Dispatchers.Main).launch {
-                    val result = requestPermission(listOf(PermissionType.Camera,
+                    val allPermissions = listOf(
                         PermissionType.LocationForeground,
-                        PermissionType.LocationBackground))
-                    status = result.toString()
+                        PermissionType.Camera,
+                        PermissionType.RecordAudio,
+                        PermissionType.LocationBackground,
+                    )
+
+                    var result = true
+                    for (permission in allPermissions) {
+                        val permissionResponse = requestPermission(listOf(permission))
+                        if (permissionResponse != PermissionStatus.Granted) {
+                            result = false
+                            break
+                        }
+                    }
+                    if(result){
+                        status = "permission granted"
+                    }else{
+                        status = "open app setting"
+                    }
                 }
             }) {
                 Text("Request Permission")
