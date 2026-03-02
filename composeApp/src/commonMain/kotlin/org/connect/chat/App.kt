@@ -11,9 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -28,6 +34,9 @@ import org.connect.chat.domain.permission.PermissionStatus
 import org.connect.chat.domain.permission.PermissionType
 import org.connect.chat.domain.usecase.CheckPermissionUseCase
 import org.connect.chat.domain.usecase.RequestPermissionUseCase
+import org.connect.chat.platform.LocationData
+import org.connect.chat.presentation.LocationViewModel
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 @Composable
@@ -47,6 +56,10 @@ fun App() {
             Permission(navController)
         }
 
+        composable(Screen.Location.route){
+            LocationScreen(navController)
+        }
+
     }
 }
 
@@ -55,6 +68,7 @@ fun App() {
 fun MainMenu(navController: NavHostController) {
     val features = listOf(
         "Permission",
+        "LocationScreen",
         "B",
         "C",
         "D")
@@ -75,6 +89,9 @@ fun MainMenu(navController: NavHostController) {
                             when(item) {
                                 "Permission" -> {
                                     navController.navigate(Screen.Permission.route)
+                                }
+                                "LocationScreen" -> {
+                                    navController.navigate(Screen.Location.route)
                                 }
                                 else -> {
 
@@ -150,6 +167,100 @@ fun Permission(navController: NavHostController) {
             }
 
             Text(status)
+        }
+    }
+}
+
+
+
+
+@Composable
+fun LocationScreen(
+    navController: NavHostController
+) {
+    val viewModel: LocationViewModel = koinViewModel()
+    val state by viewModel.state.collectAsState()
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // Current Location Card
+        state.currentLocation?.let { location ->
+            LocationCard(location)
+        }
+
+        // Status
+        Text(
+            text = if (state.isTracking) "📍 Tracking Live" else "⏸️ Stopped",
+            style = MaterialTheme.typography.headlineSmall,
+            color = if (state.isTracking) Color.Green else Color.Gray
+        )
+
+        // Buttons
+        if (state.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            Button(
+                onClick = { viewModel.getCurrentLocation() },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Get Current Location")
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    onClick = { viewModel.startTracking(5) },
+                    modifier = Modifier.weight(1f),
+                    enabled = !state.isTracking
+                ) {
+                    Text("Start Tracking (5s)")
+                }
+
+                Button(
+                    onClick = { viewModel.stopTracking() },
+                    modifier = Modifier.weight(1f),
+                    enabled = state.isTracking
+                ) {
+                    Text("Stop Tracking")
+                }
+            }
+        }
+
+        // Error
+        state.error?.let { error ->
+            Text(
+                text = error,
+                color = Color.Red,
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+}
+
+@Composable
+private fun LocationCard(location: LocationData) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = "📍 Current Location",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Lat: ${location.latitude}")
+            Text("Lng: ${location.longitude}")
+            Text("Accuracy: ${location.accuracy}m")
         }
     }
 }
