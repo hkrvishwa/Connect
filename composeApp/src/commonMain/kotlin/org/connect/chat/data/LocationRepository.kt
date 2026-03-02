@@ -1,12 +1,11 @@
 package org.connect.chat.data
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import org.connect.chat.platform.LocationData
 import org.connect.chat.platform.LocationManager
 
 class LocationRepository(
-    private val locationManager: LocationManager
+    private val locationManager: LocationManager,
+    private val log : LogRepo
 ) {
     suspend fun getCurrentLocation(): LocationData {
         return locationManager.getLocation()
@@ -17,6 +16,7 @@ class LocationRepository(
         onLocationUpdate: (LocationData) -> Unit
     ){
         locationManager.listenLocation(intervalSeconds) { location ->
+            log.d("Location" , "location ${location.latitude},${location.longitude}")
             onLocationUpdate(location)
         }
     }

@@ -2,7 +2,7 @@ package org.connect.chat
 
 import android.app.Application
 import org.connect.chat.di.androidModule
-import org.connect.chat.di.permissionModule
+import org.connect.chat.di.commonModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -12,7 +12,7 @@ class MyApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MyApp)
-            modules(permissionModule,androidModule)
+            modules(commonModule,androidModule)
         }
     }
 }

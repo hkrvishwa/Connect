@@ -79,7 +79,6 @@ class AndroidLocationManager(
         this.locationCallback = object : LocationCallback() {
             override fun onLocationResult(result: LocationResult) {
                 result.locations.forEach { location ->
-                    Log.d("Android_Location" , "location ${location.latitude},${location.longitude}")
                     locationCallback(
                         LocationData(
                             latitude = location.latitude,
