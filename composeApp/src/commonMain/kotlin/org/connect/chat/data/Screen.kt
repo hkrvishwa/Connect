@@ -11,6 +11,8 @@ sealed class Screen(val route: String) {
 
     object SQLNote : Screen("SQLNote")
 
+    object UIScreen : Screen("UISCREEN")
+
     object Detail : Screen("detail")
 
     object Profile : Screen("profile/{userId}") {

@@ -30,6 +30,9 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.connect.chat.composables.CustomTextInput
+import org.connect.chat.composables.CustomTextInput2
+import org.connect.chat.composables.CustomTextInput3
 import org.connect.chat.data.Screen
 import org.connect.chat.domain.permission.PermissionStatus
 import org.connect.chat.domain.permission.PermissionType
@@ -64,6 +67,10 @@ fun App() {
         composable(Screen.SQLNote.route){
             SQLNote(navController)
         }
+
+        composable(Screen.UIScreen.route){
+            UIScreen(navController)
+        }
     }
 }
 
@@ -74,9 +81,7 @@ fun MainMenu(navController: NavHostController) {
         "Permission",
         "LocationScreen",
         "SQLNote",
-        "B",
-        "C",
-        "D")
+        "UIScreen")
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -100,6 +105,9 @@ fun MainMenu(navController: NavHostController) {
                                 }
                                 "SQLNote" -> {
                                     navController.navigate(Screen.SQLNote.route)
+                                }
+                                "UIScreen" -> {
+                                    navController.navigate(Screen.UIScreen.route)
                                 }
                                 else -> {
 
@@ -178,7 +186,6 @@ fun Permission(navController: NavHostController) {
         }
     }
 }
-
 
 
 
@@ -325,5 +332,48 @@ private fun SQLNote(navController: NavHostController){
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun UIScreen(navController: NavHostController){
+
+    var text by remember { mutableStateOf("") }
+    var text2 by remember { mutableStateOf("") }
+    var text3 by remember { mutableStateOf("") }
+
+    Column (
+        modifier = Modifier.fillMaxSize()
+    ){
+
+        Spacer(modifier = Modifier.height(20.dp))
+        CustomTextInput(
+            value = text,
+            onValueChange = { text = it },
+            placeholder = "Enter your text"
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        CustomTextInput2(
+            value = text2,
+            onValueChange = { text2 = it },
+            placeholder = "Enter your text"
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        CustomTextInput3(
+            value = text3,
+            onValueChange = { text3 = it },
+            placeholder = "Enter your text"
+        )
+
+       /* OutlinedTextField(
+            value = text,
+            onValueChange = { text = it }
+        )*/
+
+
     }
 }
