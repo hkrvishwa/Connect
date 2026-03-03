@@ -9,6 +9,8 @@ sealed class Screen(val route: String) {
 
     object Location : Screen("LOCATION")
 
+    object SQLNote : Screen("SQLNote")
+
     object Detail : Screen("detail")
 
     object Profile : Screen("profile/{userId}") {

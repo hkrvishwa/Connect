@@ -1,9 +1,13 @@
 package org.connect.chat.di
 
-import androidx.activity.ComponentActivity
+
+import android.content.Context
+import com.connect.chat.db.AppDatabase
+import org.connect.chat.platform.AndroidDriverFactory
 import org.connect.chat.platform.AndroidLocationManager
 import org.connect.chat.platform.AndroidLog
 import org.connect.chat.platform.AndroidPermissionManager
+import org.connect.chat.platform.DatabaseDriverFactory
 import org.connect.chat.platform.LocationManager
 import org.connect.chat.platform.Logger
 import org.connect.chat.platform.PermissionManager
@@ -11,6 +15,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val androidModule = module {
+
 
     single<PermissionManager> {
         AndroidPermissionManager()
@@ -23,4 +28,11 @@ val androidModule = module {
     single<Logger> {
         AndroidLog()
     }
+
+    single<DatabaseDriverFactory> {
+        AndroidDriverFactory(get())
+    }
+
+
+
 }

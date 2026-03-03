@@ -15,6 +15,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -36,6 +37,7 @@ import org.connect.chat.domain.usecase.CheckPermissionUseCase
 import org.connect.chat.domain.usecase.RequestPermissionUseCase
 import org.connect.chat.platform.LocationData
 import org.connect.chat.presentation.LocationViewModel
+import org.connect.chat.presentation.NoteViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -47,7 +49,6 @@ fun App() {
         navController = navController,
         startDestination = Screen.Home.route
     ) {
-
         composable(Screen.Home.route){
             MainMenu(navController)
         }
@@ -60,6 +61,9 @@ fun App() {
             LocationScreen(navController)
         }
 
+        composable(Screen.SQLNote.route){
+            SQLNote(navController)
+        }
     }
 }
 
@@ -69,6 +73,7 @@ fun MainMenu(navController: NavHostController) {
     val features = listOf(
         "Permission",
         "LocationScreen",
+        "SQLNote",
         "B",
         "C",
         "D")
@@ -92,6 +97,9 @@ fun MainMenu(navController: NavHostController) {
                                 }
                                 "LocationScreen" -> {
                                     navController.navigate(Screen.Location.route)
+                                }
+                                "SQLNote" -> {
+                                    navController.navigate(Screen.SQLNote.route)
                                 }
                                 else -> {
 
@@ -261,6 +269,61 @@ private fun LocationCard(location: LocationData) {
             Text("Lat: ${location.latitude}")
             Text("Lng: ${location.longitude}")
             Text("Accuracy: ${location.accuracy}m")
+        }
+    }
+}
+
+
+@Composable
+private fun SQLNote(navController: NavHostController){
+    val viewModel: NoteViewModel = koinInject()
+
+    val notes by viewModel.notes.collectAsState()
+
+    var text by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+
+        OutlinedTextField(
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Type something") }
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Button(
+            onClick = {
+                viewModel.addNote(text)
+                text = ""
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Save")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            items(notes) { note ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                ) {
+                    Text(
+                        text = note.message,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+            }
         }
     }
 }
