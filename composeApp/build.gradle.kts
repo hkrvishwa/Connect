@@ -38,6 +38,9 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.play.services.location)
             implementation(libs.sqldelight.android.driver)
+            implementation(libs.camerax.camera2)
+            implementation(libs.camerax.lifecycle)
+            implementation(libs.camerax.view)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)

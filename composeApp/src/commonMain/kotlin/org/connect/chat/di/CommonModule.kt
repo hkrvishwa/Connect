@@ -20,7 +20,7 @@ val commonModule = module {
 
     single { createDatabase(get()) }
 
-    single<HttpClient> { provideHttpClient() }
+    single { provideHttpClient() }
 
     single { LogRepo(get()) }
     single { PermissionRepository(get()) }

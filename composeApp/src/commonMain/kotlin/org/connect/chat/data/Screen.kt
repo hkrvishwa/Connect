@@ -15,6 +15,8 @@ sealed class Screen(val route: String) {
 
     object Ktor : Screen("KTOR")
 
+    object Camera : Screen("Camera")
+
     object Detail : Screen("detail")
 
     object Profile : Screen("profile/{userId}") {

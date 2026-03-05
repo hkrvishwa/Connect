@@ -1,5 +1,8 @@
 package org.connect.chat
 
+import android.graphics.BitmapFactory
+import android.widget.Space
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -21,6 +25,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -38,6 +43,7 @@ import org.connect.chat.domain.permission.PermissionStatus
 import org.connect.chat.domain.permission.PermissionType
 import org.connect.chat.domain.usecase.CheckPermissionUseCase
 import org.connect.chat.domain.usecase.RequestPermissionUseCase
+import org.connect.chat.platform.CameraCapture
 import org.connect.chat.platform.LocationData
 import org.connect.chat.presentation.LocationViewModel
 import org.connect.chat.presentation.NoteViewModel
@@ -51,8 +57,10 @@ fun App() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.Home.route,
+        modifier = Modifier.padding(top = 30.dp)
     ) {
+
         composable(Screen.Home.route){
             MainMenu(navController)
         }
@@ -77,6 +85,10 @@ fun App() {
             Ktor(navController)
         }
 
+        composable(Screen.Camera.route){
+            CameraX(navController)
+        }
+
     }
 }
 
@@ -88,7 +100,8 @@ fun MainMenu(navController: NavHostController) {
         "LocationScreen",
         "SQLNote",
         "UIScreen",
-        "Ktor")
+        "Ktor",
+        "Camera")
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -118,6 +131,9 @@ fun MainMenu(navController: NavHostController) {
                                 }
                                 "Ktor" -> {
                                     navController.navigate(Screen.Ktor.route)
+                                }
+                                "Camera" -> {
+                                    navController.navigate(Screen.Camera.route)
                                 }
                                 else -> {
 
@@ -432,5 +448,48 @@ private fun Ktor(navController: NavHostController){
             }
         }
 
+    }
+}
+
+@Composable
+private fun CameraX(navController: NavHostController){
+    var imageBytes by remember { mutableStateOf<ByteArray?>(null) }
+    var openCamera by remember { mutableStateOf<Boolean>(false) }
+    Column(
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        Button(onClick = {
+            openCamera = true
+        }) {
+            Text("open camera")
+        }
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        if(openCamera){
+            CameraCapture(
+                onImageCaptured = { it  ->
+                    imageBytes = it
+                    openCamera = false
+                },
+                onError = { it  ->
+
+                }
+            )
+        }
+
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        imageBytes?.let { it ->
+            Image(
+                bitmap =  BitmapFactory.decodeByteArray(it, 0, it.size).asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier.size(200.dp)
+            )
+        }
     }
 }

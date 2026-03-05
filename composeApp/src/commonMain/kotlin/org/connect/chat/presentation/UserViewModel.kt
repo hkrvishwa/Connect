@@ -43,7 +43,6 @@ class UserViewModel(val userRepository: UserRepository)  : ViewModel() {
             }
         }
     }
-
 }
 
 data class UserData(

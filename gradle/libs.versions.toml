@@ -21,6 +21,7 @@ koinComposeMultiplatform = "1.2.0-Beta4"
 ktor = "2.3.7"
 playServicesLocation = "21.3.0"
 sqldelight = "2.0.2"
+android-camerax = "1.4.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -61,6 +62,9 @@ play-services-location = { group = "com.google.android.gms", name = "play-servic
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+camerax-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "android-camerax" }
+camerax-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "android-camerax" }
+camerax-view = { module = "androidx.camera:camera-view", version.ref = "android-camerax" }
 
 
 [plugins]
