@@ -1,7 +1,7 @@
-package org.connect.chat.data.permission
+package org.connect.chat.data
 
-import org.connect.chat.platform.PermissionManager
 import org.connect.chat.domain.permission.PermissionType
+import org.connect.chat.platform.PermissionManager
 
 class PermissionRepository(
     private val manager: PermissionManager

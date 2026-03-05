@@ -41,6 +41,7 @@ import org.connect.chat.domain.usecase.RequestPermissionUseCase
 import org.connect.chat.platform.LocationData
 import org.connect.chat.presentation.LocationViewModel
 import org.connect.chat.presentation.NoteViewModel
+import org.connect.chat.presentation.UserViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -71,6 +72,11 @@ fun App() {
         composable(Screen.UIScreen.route){
             UIScreen(navController)
         }
+
+        composable(Screen.Ktor.route){
+            Ktor(navController)
+        }
+
     }
 }
 
@@ -81,7 +87,8 @@ fun MainMenu(navController: NavHostController) {
         "Permission",
         "LocationScreen",
         "SQLNote",
-        "UIScreen")
+        "UIScreen",
+        "Ktor")
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -108,6 +115,9 @@ fun MainMenu(navController: NavHostController) {
                                 }
                                 "UIScreen" -> {
                                     navController.navigate(Screen.UIScreen.route)
+                                }
+                                "Ktor" -> {
+                                    navController.navigate(Screen.Ktor.route)
                                 }
                                 else -> {
 
@@ -374,6 +384,53 @@ private fun UIScreen(navController: NavHostController){
             onValueChange = { text = it }
         )*/
 
+
+    }
+}
+
+@Composable
+private fun Ktor(navController: NavHostController){
+    val viewModel : UserViewModel = koinViewModel()
+
+    val userData = viewModel.user.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getUsers()
+    }
+
+    when{
+        userData.value.isLoading == true -> {
+            CircularProgressIndicator()
+        }
+
+        userData.value.error?.isNotEmpty() == true -> {
+
+        }
+
+        userData.value.userList?.isNullOrEmpty() == false -> {
+            val userlistData = userData.value.userList
+            userlistData?.let { users ->
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(
+                        items = users,
+                        key = { user -> user.id },
+                    ) { user ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = user.name,
+                                modifier = Modifier.padding(16.dp)
+                            )
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

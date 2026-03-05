@@ -13,6 +13,8 @@ sealed class Screen(val route: String) {
 
     object UIScreen : Screen("UISCREEN")
 
+    object Ktor : Screen("KTOR")
+
     object Detail : Screen("detail")
 
     object Profile : Screen("profile/{userId}") {
