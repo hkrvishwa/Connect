@@ -38,6 +38,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.calculator.CleanUnusedStrings
 import com.example.calculator.MyClass
+import com.example.calculator.searching.BinearSearch
+import com.example.calculator.searching.LinearSearch
 import com.example.calculator.sorting.Bubble
 import com.example.calculator.sorting.Insertion
 import com.example.calculator.sorting.Merge
@@ -538,7 +540,7 @@ private fun JavaModule(navController: NavController){
                 //CleanUnusedStrings.main()
             }*/
 
-                val x = object : Merge() {
+              /*  val x = object : Merge() {
                     override fun displayBefore(arr: IntArray?) {
                         display(arr,"Before")
                     }
@@ -551,9 +553,15 @@ private fun JavaModule(navController: NavController){
                         logger.d(msg,arr.contentToString())
                     }
                 }
-                x.sort()
+                x.sort()*/
+                val search = object : BinearSearch() {
 
+                    override fun display(msg: String) {
+                        logger.d("search",msg)
+                    }
+                }
 
+                search.search()
 
 
 
