@@ -18,3 +18,12 @@ public class Selection extends Sort{
         displayAfter(input);
     }
 }
+
+/**
+ * SELECTION SORT ANALYSIS:
+ * 1. Time Complexity: Best O(n²), Worst O(n²)
+ * 2. Space Complexity: O(1)
+ * 3. Stable: No
+ * 4. Data: Poor for both small and large data compared to others.
+ * 5. Overall: Best when memory writes (swaps) are expensive.
+ */

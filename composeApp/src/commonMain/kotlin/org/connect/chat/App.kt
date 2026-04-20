@@ -39,6 +39,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.calculator.CleanUnusedStrings
 import com.example.calculator.MyClass
 import com.example.calculator.sorting.Bubble
+import com.example.calculator.sorting.Insertion
+import com.example.calculator.sorting.Merge
 import com.example.calculator.sorting.Selection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -536,7 +538,7 @@ private fun JavaModule(navController: NavController){
                 //CleanUnusedStrings.main()
             }*/
 
-               /* val x = object : Bubble() {
+                val x = object : Merge() {
                     override fun displayBefore(arr: IntArray?) {
                         display(arr,"Before")
                     }
@@ -549,22 +551,12 @@ private fun JavaModule(navController: NavController){
                         logger.d(msg,arr.contentToString())
                     }
                 }
-                x.sort()*/
+                x.sort()
 
-                val selection = object : Selection(){
-                    override fun displayBefore(arr: IntArray?) {
-                        display(arr,"Before")
-                    }
 
-                    override fun displayAfter(arr: IntArray?) {
-                        display(arr,"After")
-                    }
 
-                    override fun display(arr: IntArray?, msg: String) {
-                        logger.d(msg,arr.contentToString())
-                    }
-                }
-                selection.sort();
+
+
         }) {
             Text("play")
 

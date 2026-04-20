@@ -26,3 +26,12 @@ public class Bubble extends Sort{
 
     }
 }
+
+/**
+ * BUBBLE SORT ANALYSIS:
+ * 1. Time Complexity: Best O(n), Worst O(n²)
+ * 2. Space Complexity: O(1)
+ * 3. Stable: Yes
+ * 4. Data: Good for very small or nearly sorted data. Poor for large data.
+ * 5. Overall: Best for educational use.
+ */
