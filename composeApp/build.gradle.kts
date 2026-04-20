@@ -61,6 +61,9 @@ kotlin {
             implementation(libs.bundles.ktor)
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines)
+
+            //in app libs
+            implementation(project(":calculator"))
         }
         /*commonTest.dependencies {
             implementation(libs.kotlin.test)

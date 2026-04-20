@@ -1,6 +1,7 @@
 package org.connect.chat
 
 import android.graphics.BitmapFactory
+import android.view.SoundEffectConstants
 import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -26,12 +28,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.calculator.CleanUnusedStrings
+import com.example.calculator.MyClass
+import com.example.calculator.sorting.Bubble
+import com.example.calculator.sorting.Selection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,11 +53,13 @@ import org.connect.chat.domain.usecase.CheckPermissionUseCase
 import org.connect.chat.domain.usecase.RequestPermissionUseCase
 import org.connect.chat.platform.CameraCapture
 import org.connect.chat.platform.LocationData
+import org.connect.chat.platform.Logger
 import org.connect.chat.presentation.LocationViewModel
 import org.connect.chat.presentation.NoteViewModel
 import org.connect.chat.presentation.UserViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
+import kotlin.concurrent.thread
 
 @Composable
 @Preview
@@ -89,6 +99,10 @@ fun App() {
             CameraX(navController)
         }
 
+        composable(Screen.JavaModule.route){
+            JavaModule(navController)
+        }
+
     }
 }
 
@@ -101,7 +115,8 @@ fun MainMenu(navController: NavHostController) {
         "SQLNote",
         "UIScreen",
         "Ktor",
-        "Camera")
+        "Camera",
+        "JavaModule")
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -134,6 +149,9 @@ fun MainMenu(navController: NavHostController) {
                                 }
                                 "Camera" -> {
                                     navController.navigate(Screen.Camera.route)
+                                }
+                                "JavaModule" -> {
+                                    navController.navigate(Screen.JavaModule.route)
                                 }
                                 else -> {
 
@@ -490,6 +508,66 @@ private fun CameraX(navController: NavHostController){
                 contentDescription = null,
                 modifier = Modifier.size(200.dp)
             )
+        }
+    }
+}
+
+@Composable
+private fun JavaModule(navController: NavController){
+    val res = MyClass().total(15,100)
+    val view = LocalView.current
+    val logger = koinInject<Logger>()
+    Column(
+        modifier = Modifier.
+        fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(text = "15+100=$res")
+
+        Button(
+            modifier = Modifier
+                .width(100.dp)
+                .height(65.dp),
+            onClick = {
+            view.playSoundEffect(SoundEffectConstants.CLICK)
+            /*thread {
+                //CleanUnusedStrings.main()
+            }*/
+
+               /* val x = object : Bubble() {
+                    override fun displayBefore(arr: IntArray?) {
+                        display(arr,"Before")
+                    }
+
+                    override fun displayAfter(arr: IntArray?) {
+                        display(arr,"After")
+                    }
+
+                    override fun display(arr: IntArray?, msg: String) {
+                        logger.d(msg,arr.contentToString())
+                    }
+                }
+                x.sort()*/
+
+                val selection = object : Selection(){
+                    override fun displayBefore(arr: IntArray?) {
+                        display(arr,"Before")
+                    }
+
+                    override fun displayAfter(arr: IntArray?) {
+                        display(arr,"After")
+                    }
+
+                    override fun display(arr: IntArray?, msg: String) {
+                        logger.d(msg,arr.contentToString())
+                    }
+                }
+                selection.sort();
+        }) {
+            Text("play")
+
         }
     }
 }
