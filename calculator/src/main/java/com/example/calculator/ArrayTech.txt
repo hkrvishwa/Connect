@@ -1,0 +1,24 @@
+1. The "Two Pointers" Technique (Most Common)
+    - you use two variables (pointers) to traverse the array from different directions or speeds
+    - One pointer moves 1 step, the other moves 2 steps.
+
+2. Sliding Window (For "Subarrays")
+    - Used when you are asked to find something in a contiguous (connected) part of an array
+    - Fixed Window , Dynamic Window ( The window grows or shrinks based on a condition. )
+
+3. Prefix Sum (Preprocessing)
+    -
+
+4. Frequency Array / Hash Map (Hashing)
+
+5. Sorting + Greedy
+
+6. Dutch National Flag (3-Way Partitioning)
+   - Logic: Maintain three pointers: low, mid, and high
+
+7. Kadane’s Algorithm (Dynamic Programming)
+    - A specific "One-Time Logic" for finding the maximum sum of a subarray.
+    -  current_max = max(arr[i], current_max + arr[i])
+
+
+8. Binary Search

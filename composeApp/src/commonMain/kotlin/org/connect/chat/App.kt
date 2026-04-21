@@ -566,7 +566,7 @@ private fun JavaModule(navController: NavController){
 
 
         }) {
-            Text("play")
+            Text("click")
 
         }
     }
