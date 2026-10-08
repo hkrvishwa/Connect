@@ -7,7 +7,6 @@ public abstract  class BinearSearch {
     int target = 7;
 
     public void search(){
-
         int start = 0;
         int end = input.length-1;
         while(start<end){
