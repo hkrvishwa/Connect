@@ -65,6 +65,7 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import kotlin.concurrent.thread
 
+
 @Composable
 @Preview
 fun App() {
