@@ -3,7 +3,6 @@ package com.example.calculator.searching;
 public abstract  class BinearSearch {
 
     int[] input = new int[]{2,5,6,7,8,9,10,15};
-
     int target = 7;
 
     public void search(){
