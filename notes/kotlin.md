@@ -424,9 +424,9 @@ lateinit A modifier allowing a **non-nullable , mutable** property to bypass con
 ****lateinit cannot** be used with Kotlin **primitive-like types** such as Int, Boolean, Double, etc
 
 lazy A delegate that computes a read-only property value only upon its first access and caches the result for future reads
-✅ Normally used with val\n
-✅ Can hold a non-nullable type\n
-✅ Can hold a nullable type
+✅ Normally used with val  
+✅ Can hold a non-nullable type  
+✅ Can hold a nullable type  
 ✅ Works with primitive-like types such as Int, Boolean, Double
 ✅ Works with objects such as String, User, List, etc.
 ✅ Initialized only when accessed for the first time
