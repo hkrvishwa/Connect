@@ -7,20 +7,7 @@
 
 
 
-10. Collections
-    Collection
-    Iterable
-    List
-    MutableList
-    Set
-    MutableSet
-    Map
-    MutableMap
-    ArrayList
-    HashSet
-    HashMap
-    Read-Only Collections
-    Mutable Collections
+
 11. Collection Operations
     forEach
     map

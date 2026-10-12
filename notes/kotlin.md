@@ -440,3 +440,18 @@ val x by lazy { "hi" }
 Array<Int>(1) { 0 } creates a boxed object array (java.lang.Integer[]) which causes memory overhead val a = Array<Int>(1) { 0 }   
 IntArray(1) { 0 } creates a high-performance raw primitive array (int[]) with zero boxing overhead val b = IntArray(1) { 0 }   
 arrayOf(1, 2) infers a generic boxed wrapper object array rather than a primitive array type val c = arrayOf(1, 2)   
+Array<Int> and arrayOf ,both have the exact same type, which is Array<Int>.   
+
+#### Collections
+
+List Definition Declare an explicit type reference for standard or mutable integer list variables   
+val list: List<Int> = listOf(1, 2) or val mutableList: MutableList<Int> = mutableListOf(1, 2)   
+
+HashMap Definition Instantiate an explicit generic hash map constructor to hold key-value configurations   
+val hashMap: HashMap<Int, String> = hashMapOf(1 to "a") or val emptyMap = HashMap<Int, String>()   
+
+ArrayList Definition Define an explicit dynamic array collection holding targeted data types   
+val arrayList: ArrayList<Int> = arrayListOf(1, 2) or val emptyList = ArrayList<Int>()   
+
+HashSet Definition Create a standalone hash table set structure with explicit data constraints   
+val hashSet: HashSet<Int> = hashSetOf(1, 2) or val emptySet = HashSet<Int>()   
