@@ -403,3 +403,35 @@ Multiple Catch Blocks Checking exceptions sequentially from top to bottom, movin
 Exception Propagation Uncaught exceptions bubble up the call stack to parent calling functions until a matching try-catch block handles them
 
 The finally block cannot return a value in Kotlin
+
+
+#### Null Safety
+
+Nullable Types Variables explicitly declared with a question mark to allow them to store null values val name: String? = null
+
+Non-Nullable Types Standard variables that cannot hold null values and trigger a compiler error if you try to assign null val name: String = "abc"
+
+Safe Call Operator Executes a property or method call only if the variable is not null, otherwise returning null safely name?.length
+
+Elvis Operator Provides a fallback or default value when the expression on the left side evaluates to null val len = name?.length ?: 0
+
+Not-Null Assertion Forcefully converts a nullable value to a non-nullable type, throwing a NullPointerException if it is null name!!.length
+
+Safe Cast Attempts to cast an object to a target type and returns null instead of throwing an exception if the cast fails x as? String
+
+lateinit A modifier allowing a **non-nullable , mutable** property to bypass constructor initialization and be initialized later before usage 
+
+****lateinit cannot** be used with Kotlin **primitive-like types** such as Int, Boolean, Double, etc
+
+lazy A delegate that computes a read-only property value only upon its first access and caches the result for future reads
+✅ Normally used with val
+✅ Can hold a non-nullable type
+✅ Can hold a nullable type
+✅ Works with primitive-like types such as Int, Boolean, Double
+✅ Works with objects such as String, User, List, etc.
+✅ Initialized only when accessed for the first time
+
+```kotlin
+lateinit var x: String
+val x by lazy { "hi" }
+```
