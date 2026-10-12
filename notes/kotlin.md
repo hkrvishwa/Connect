@@ -384,3 +384,22 @@ fun test() {
 }
 //crossinline keeps the lambda eligible for inlining, but prevents it from doing a non-local return.
 ```
+
+#### Exception
+try Wraps a block of code that might throw an error or exception during runtime execution try { 1/0 }
+
+catch Intercepts and handles a specific exception thrown from the preceding try block catch(e: Exception) { }
+
+finally Executes its code block guaranteed every time, regardless of whether an exception was thrown or caught finally { close() }
+
+throw Manually triggers and raises a specific exception instance to signal an application error throw IllegalArgumentException()
+
+try Expression Evaluates the try-catch structure as an expression, returning the value of the last line of the successful or caught block val num = try { "1".toInt() } catch(e: Exception) { 0 }
+
+Custom Exceptions Creating user-defined exception classes by inheriting from the base Exception or RuntimeException classes class MyException : Exception()
+
+Multiple Catch Blocks Checking exceptions sequentially from top to bottom, moving from the most specific subclass to the most general catch(e: IOException) { } catch(e: Exception) { }
+
+Exception Propagation Uncaught exceptions bubble up the call stack to parent calling functions until a matching try-catch block handles them
+
+The finally block cannot return a value in Kotlin

@@ -201,15 +201,7 @@
     Unsafe Cast
     Safe Cast
     Type Inference
-25. Exception Handling
-    try
-    catch
-    finally
-    throw
-    try Expression
-    Custom Exceptions
-    Multiple Catch Blocks
-    Exception Propagation
+
 26. Generics
     Generic Classes
     Generic Functions
