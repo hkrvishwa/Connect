@@ -435,3 +435,8 @@ lazy A delegate that computes a read-only property value only upon its first acc
 lateinit var x: String
 val x by lazy { "hi" }
 ```
+
+####  Array
+Array<Int>(1) { 0 } creates a boxed object array (java.lang.Integer[]) which causes memory overhead val a = Array<Int>(1) { 0 }   
+IntArray(1) { 0 } creates a high-performance raw primitive array (int[]) with zero boxing overhead val b = IntArray(1) { 0 }   
+arrayOf(1, 2) infers a generic boxed wrapper object array rather than a primitive array type val c = arrayOf(1, 2)   

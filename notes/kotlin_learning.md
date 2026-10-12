@@ -5,24 +5,8 @@
 
 
 
-8. Null Safety
-   Nullable Types
-   Non-Nullable Types
-   Safe Call Operator
-   Elvis Operator
-   Not-Null Assertion
-   Safe Cast
-   Nullable Chains
-   Nullable Collections
-   lateinit
-   lazy
-9. Arrays
-   Array
-   Primitive Arrays
-   Array Creation
-   Array Access
-   Array Iteration
-   Multidimensional Arrays
+
+
 10. Collections
     Collection
     Iterable
