@@ -1,15 +1,15 @@
 
 # Kotlin 
 
-• Concise: Reduces boilerplate code by roughly 40% compared to Java.
+ Concise: Reduces boilerplate code by roughly 40% compared to Java.
     using data clasess,setter,getter
-• Null Safety: Prevents NullPointerException errors by making ?.
-• Interoperable: Has 100% bidirectional compatibility with Java.
-• Multi-Paradigm: Combines Object-Oriented and Functional programming styles
+ Null Safety: Prevents NullPointerException errors by making ?.
+ Interoperable: Has 100% bidirectional compatibility with Java.
+ Multi-Paradigm: Combines Object-Oriented and Functional programming styles
 
 
 ## Kotlin Variables & Types
-• val: Declares a read-only (immutable) local variable that cannot be reassigned after initialization.
+ val: Declares a read-only (immutable) local variable that cannot be reassigned after initialization.
 • var: Declares a mutable variable that can be reassigned with new values later in the code.
 • Type Inference: Automatically determines a variable's data type at compile-time based on its assigned value.
 • Explicit Types: Manually defining the variable's type using a colon and type name during declaration.
