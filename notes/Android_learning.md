@@ -1713,7 +1713,7 @@ private static final Object *LOCK* = new Object();
 private Singleton() {
 
 }
-```
+
 
 public static Singleton getInstance() {
 
@@ -1736,6 +1736,7 @@ return *object*;
 }
 
 }
+```
 
 ## *KOTLIN*
 
