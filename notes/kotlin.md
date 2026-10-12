@@ -3,8 +3,11 @@
 
  Concise: Reduces boilerplate code by roughly 40% compared to Java.
     using data clasess,setter,getter
+
  Null Safety: Prevents NullPointerException errors by making ?.
+
  Interoperable: Has 100% bidirectional compatibility with Java.
+
  Multi-Paradigm: Combines Object-Oriented and Functional programming styles
 
 
