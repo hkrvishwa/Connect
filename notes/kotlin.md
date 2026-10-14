@@ -455,3 +455,91 @@ val arrayList: ArrayList<Int> = arrayListOf(1, 2) or val emptyList = ArrayList<I
 
 HashSet Definition Create a standalone hash table set structure with explicit data constraints   
 val hashSet: HashSet<Int> = hashSetOf(1, 2) or val emptySet = HashSet<Int>()   
+
+### List
+1. filter   
+It filters out elements that do not match the given condition   
+```kotlin
+val numbers = listOf(1, 2, 3, 4)
+val evens = numbers.filter { it % 2 == 0 } // [2, 4]
+```
+   
+2. map     
+It transforms each element in the list using the provided transformation block.     
+```kotlin
+val numbers = listOf(1, 2, 3)
+val doubled = numbers.map { it * 2 } // [2, 4, 6]
+```
+
+3. sorted     
+It returns a new list containing all elements sorted in ascending order.      
+```kotlin
+val numbers = listOf(3, 1, 4, 2)
+val sortedList = numbers.sorted() // [1, 2, 3, 4]
+```  
+
+4. distinct   
+It removes all duplicate elements, returning only unique values.   
+```kotlin
+val numbers = listOf(1, 2, 2, 3, 3)
+val unique = numbers.distinct() // [1, 2, 3]
+```
+
+5. first -> It returns the very first element of the list, or the first that matches a condition.   
+6. last -> It returns the very last element of the list, or the last that matches a condition.   
+7. sum -> It calculates and returns the sum of all numerical elements in the list.  
+
+8. any      
+It returns true if at least one element matches the given condition.   
+```kotlin
+val numbers = listOf(1, 2, 3)
+val hasEven = numbers.any { it % 2 == 0 } // true
+```
+
+9. all    
+It returns true only if every single element matches the given condition.   
+```kotlin
+val numbers = listOf(2, 4, 6)
+val allEven = numbers.all { it % 2 == 0 } // true
+```
+
+10. joinToString   
+It flattens the list into a single readable string separated by a specific delimiter.   
+```kotlin
+val items = listOf("Apple", "Banana", "Orange")
+val text = items.joinToString(", ") // "Apple, Banana, Orange"
+```
+
+11.flatMap   
+It transforms each element into a collection and flattens all resulting collections into a single list
+```kotlin
+val nested = listOf(listOf(1, 2), listOf(3, 4))
+val flat = nested.flatMap { it } // [1, 2, 3, 4]
+```
+
+12.groupBy     
+It groups elements into a Map based on a specific key selector function   
+```kotlin
+val words = listOf("apple", "apricot", "banana")
+val grouped = words.groupBy { it.first() } // {a=[apple, apricot], b=[banana]}
+```
+
+12.partition   
+It splits the collection into a Pair of two lists based on whether elements match a predicate   
+```kotlin
+val numbers = listOf(1, 2, 3, 4)
+val (evens, odds) = numbers.partition { it % 2 == 0 } // evens=[2, 4], odds=[1, 3]
+```
+13.maxOrNull()        
+It returns the largest element in the list, or null if the list is empty.       
+14.minOrNull()         
+It returns the smallest element in the list, or null if the list is empty.   
+
+15.associateBy   
+It returns a Map where each element serves as a value, indexed by a custom key.   
+```kotlin
+val users = listOf("Alice", "Bob")
+val userMap = users.associateBy { it.lowercase() } // {"alice"="Alice", "bob"="Bob"}
+```
+
+
