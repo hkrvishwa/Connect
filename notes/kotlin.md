@@ -471,21 +471,22 @@ val numbers = listOf(1, 2, 3)
 val doubled = numbers.map { it * 2 } // [2, 4, 6]
 ```
 
-3. sorted     
+3. sorted  (sortedBy{} , sortedByDescending{})   
 It returns a new list containing all elements sorted in ascending order.      
 ```kotlin
 val numbers = listOf(3, 1, 4, 2)
 val sortedList = numbers.sorted() // [1, 2, 3, 4]
 ```  
 
-4. distinct   
+4. distinct  (distinctBy{}  )    
 It removes all duplicate elements, returning only unique values.   
 ```kotlin
 val numbers = listOf(1, 2, 2, 3, 3)
 val unique = numbers.distinct() // [1, 2, 3]
 ```
 
-5. first -> It returns the very first element of the list, or the first that matches a condition.   
+5. first -> It returns the very first element of the list, or the first that matches a condition.
+first{} , firstOrNull{} , last{} , sumOf{}
 6. last -> It returns the very last element of the list, or the last that matches a condition.   
 7. sum -> It calculates and returns the sum of all numerical elements in the list.  
 
@@ -515,6 +516,13 @@ It transforms each element into a collection and flattens all resulting collecti
 ```kotlin
 val nested = listOf(listOf(1, 2), listOf(3, 4))
 val flat = nested.flatMap { it } // [1, 2, 3, 4]
+
+data class Student(val name: String, val courses: List<String>)
+val students = listOf(
+    Student("Alice", listOf("Math", "Science")),
+    Student("Bob", listOf("Science", "History"))
+)
+val allCourses = students.flatMap { it.courses } // [Math, Science, Science, History]
 ```
 
 12.groupBy     
@@ -530,9 +538,9 @@ It splits the collection into a Pair of two lists based on whether elements matc
 val numbers = listOf(1, 2, 3, 4)
 val (evens, odds) = numbers.partition { it % 2 == 0 } // evens=[2, 4], odds=[1, 3]
 ```
-13.maxOrNull()        
+13.maxOrNull()  ,maxByOrNull{}      
 It returns the largest element in the list, or null if the list is empty.       
-14.minOrNull()         
+14.minOrNull()    ,minByOrNull{}     
 It returns the smallest element in the list, or null if the list is empty.   
 
 15.associateBy   
