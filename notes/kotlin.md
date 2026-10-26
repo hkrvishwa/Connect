@@ -550,4 +550,92 @@ val users = listOf("Alice", "Bob")
 val userMap = users.associateBy { it.lowercase() } // {"alice"="Alice", "bob"="Bob"}
 ```
 
+#### OOP (Object oriented programming)
+
+##### Class
+A class is blueprint that defines the structure, properties, and behaviors (functions) that the resulting objects will have.    
+It acts as a custom data type that you can instantiate multiple times.   
+
+##### Object 
+An object is a concrete instance created from a class blueprint.      
+Each object maintains its own independent copy of properties defined inside the class     
+
+##### constructor
+The primary constructor is part of the class header and directly declares fields.   
+It is the most common and concise way to initialize a class with required parameters.  
+class User(val name: String, var age: Int) // Primary constructor  
+
+Secondary constructors provide alternative ways to instantiate a class, often to provide default values or handle varying inputs.   
+They must explicitly delegate to the primary constructor using this.
+
+execution order  
+1. super constructor call (The parent class is created first).   
+2. Primary constructor properties & init blocks (Executed in the order they appear in the class body).   
+3. Secondary constructor body (Executed last)   
+
+
+```kotlin
+class Employee(val name: String) {
+    var role: String = "Staff"
+    // Secondary constructor taking an extra parameter
+    constructor(name: String, role: String) : this(name) {
+        this.role = role
+    }
+}
+```
+
+#####  Singleton Object (object keyword)
+```kotlin
+object DatabaseConfig {
+    val url = "www.xyz.com"
+}
+DatabaseConfig().url //access
+```
+
+##### Companion Object
+```kotlin
+class TokenFactory {
+    companion object {
+        const val VERSION = "1.0"
+        fun create() = "NEW_TOKEN"
+    }
+}
+// Usage: Accessed directly using the class name
+val currentVersion = TokenFactory.VERSION 
+val token = TokenFactory.create()
+```
+
+##### Properties
+The order must always be get() first, then set() directly under the property.   
+Also, ensure you use the field keyword inside both blocks to read and write the actual value, or your code will crash from a stack overflow error   
+```kotlin
+class Employee {
+    var salary: Double = 0.0
+        // Custom getter: logs a message whenever the salary is read
+        get() {
+            println("Accessing salary data...")
+            return field
+        }
+        // Custom setter: prevents setting a negative salary
+        set(value) {
+            if (value >= 0) {
+                field = value
+            } else {
+                println("Invalid salary amount!")
+            }
+        }
+}
+```
+use the field keyword (known as the backing field), which represents the actual data stored in memory.   
+Do not use the property name inside the getter/setter, or you will cause an infinite loop   
+
+##### Visibility Modifiers
+private - it can only be accessed from inside that exact class body   
+protected -  it allows subclasses (classes that inherit from it) to access it   
+You cannot use protected at the top-level of a file, only inside classes    
+internal -  If you make a class or function internal, it is visible to everything inside that project module but hidden if someone else imports your module as an external library     
+
+var username: String = "Guest"    
+private set // Getter is public, Setter is private    
+
 
